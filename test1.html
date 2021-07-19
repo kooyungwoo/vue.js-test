@@ -1,0 +1,36 @@
+<html lang="ko">
+  <head>
+    <title>Vue Sample1</title>
+  </head>
+  <body>
+    <div id="app">
+        <child-component v-on:show-log="printText"></child-component>
+                                <!-- show-log="printText" 실행될 하위 컴포넌트의 이벤트명 정의 -->
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        Vue.component('child-component',{
+                template:'<button v-on:click="showLog">show</button>',//1. child-component 컴포넌트 생성시 버튼 추가
+                methods:{
+                    showLog:function(){
+                        this.$emit('show-log');
+                    }
+                }//이벤트 발생로직 정의
+            }
+        );
+        var app = new Vue({
+            el:'#app',
+            data:{
+                message:'Hello Vue!'
+            },
+            methods:{
+                printText:function(){
+                    console.log("received an event");
+                }//이벤트 정의
+            }
+        });
+    </script>
+  </body>
+</html>
